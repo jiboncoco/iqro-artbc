@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { AudioPlayerBar } from '@/components/quran/AudioPlayerBar';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: "IQRO - Al-Qur'an AI Assistant & PWA Reader",
@@ -42,6 +43,7 @@ export default function RootLayout({
           {children}
         </main>
         <AudioPlayerBar />
+        <Analytics />
       </body>
     </html>
   );
