@@ -1,0 +1,36 @@
+{
+  "name": "IQRO - Al-Qur'an AI Assistant & PWA Reader",
+  "short_name": "IQRO",
+  "description": "Temukan rujukan dan korelasi Al-Qur'an atas setiap pertanyaan kehidupan dengan Google Gemini AI.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090d16",
+  "theme_color": "#0d1527",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "AI Assistant",
+      "url": "/?mode=ai",
+      "description": "Tanya Al-Qur'an dengan AI"
+    },
+    {
+      "name": "Baca Al-Qur'an",
+      "url": "/quran",
+      "description": "Daftar 114 Surah"
+    }
+  ]
+}
