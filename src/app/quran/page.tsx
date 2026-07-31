@@ -3,32 +3,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Search, BookOpen, ChevronRight } from 'lucide-react';
-import { Surah } from '@/types/quran';
-
-const SURAH_INDEX_SAMPLE: Surah[] = [
-  { id: 1, name_arabic: 'الفاتحة', name_latin: 'Al-Fatihah', translation_id: 'Pembukaan', total_verses: 7, revelation_type: 'meccan' },
-  { id: 2, name_arabic: 'البقرة', name_latin: 'Al-Baqarah', translation_id: 'Sapi Betina', total_verses: 286, revelation_type: 'medinan' },
-  { id: 3, name_arabic: 'آل عمران', name_latin: "Ali 'Imran", translation_id: 'Keluarga Imran', total_verses: 200, revelation_type: 'medinan' },
-  { id: 4, name_arabic: 'النساء', name_latin: "An-Nisa'", translation_id: 'Wanita', total_verses: 176, revelation_type: 'medinan' },
-  { id: 5, name_arabic: 'المائدة', name_latin: "Al-Ma'idah", translation_id: 'Hidangan', total_verses: 120, revelation_type: 'medinan' },
-  { id: 6, name_arabic: 'الأنعام', name_latin: "Al-An'am", translation_id: 'Hewan Ternak', total_verses: 165, revelation_type: 'meccan' },
-  { id: 7, name_arabic: 'الأعراف', name_latin: "Al-A'raf", translation_id: 'Tempat Tertinggi', total_verses: 206, revelation_type: 'meccan' },
-  { id: 8, name_arabic: 'الأنفال', name_latin: 'Al-Anfal', translation_id: 'Rampasan Perang', total_verses: 75, revelation_type: 'medinan' },
-  { id: 9, name_arabic: 'التوبة', name_latin: 'At-Tawbah', translation_id: 'Pengampunan', total_verses: 129, revelation_type: 'medinan' },
-  { id: 10, name_arabic: 'يونس', name_latin: 'Yunus', translation_id: 'Nabi Yunus', total_verses: 109, revelation_type: 'meccan' },
-  { id: 13, name_arabic: 'الرعد', name_latin: "Ar-Ra'd", translation_id: 'Guruh', total_verses: 43, revelation_type: 'medinan' },
-  { id: 36, name_arabic: 'يس', name_latin: 'Ya-Sin', translation_id: 'Ya Sin', total_verses: 83, revelation_type: 'meccan' },
-  { id: 67, name_arabic: 'الملك', name_latin: 'Al-Mulk', translation_id: 'Kerajaan', total_verses: 30, revelation_type: 'meccan' },
-  { id: 94, name_arabic: 'الشرح', name_latin: 'Ash-Sharh', translation_id: 'Kelapangan', total_verses: 8, revelation_type: 'meccan' },
-  { id: 112, name_arabic: 'الإخلاص', name_latin: 'Al-Ikhlas', translation_id: 'Ikhlas', total_verses: 4, revelation_type: 'meccan' },
-  { id: 113, name_arabic: 'الفلق', name_latin: 'Al-Falaq', translation_id: 'Waktu Subuh', total_verses: 5, revelation_type: 'meccan' },
-  { id: 114, name_arabic: 'الناس', name_latin: 'An-Nas', translation_id: 'Manusia', total_verses: 6, revelation_type: 'meccan' },
-];
+import { ALL_114_SURAHS } from '@/lib/quran/surahs';
 
 export default function QuranIndexPage() {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredSurahs = SURAH_INDEX_SAMPLE.filter(
+  const filteredSurahs = ALL_114_SURAHS.filter(
     (s) =>
       s.name_latin.toLowerCase().includes(searchQuery.toLowerCase()) ||
       s.translation_id.toLowerCase().includes(searchQuery.toLowerCase()) ||
