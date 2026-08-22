@@ -10,10 +10,8 @@ export async function generateQuranAnswer(userQuery: string, matchedVerses: Vers
     throw new Error('GEMINI_API_KEY environment variable is missing.');
   }
 
-  const modelNames = ['gemini-[#1.5-flash]', 'gemini-1.5-flash-latest', 'gemini-2.0-flash', 'gemini-1.5-pro-latest'];
-  
   // Try available models sequentially
-  for (const modelName of ['gemini-1.5-flash-latest', 'gemini-2.0-flash', 'gemini-1.5-pro']) {
+  for (const modelName of ['gemini-3.6-flash', 'gemini-2.5-flash', 'gemini-3.5-flash-lite']) {
     try {
       const model = genAI.getGenerativeModel({
         model: modelName,
