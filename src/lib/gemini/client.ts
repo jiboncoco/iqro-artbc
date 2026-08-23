@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenerativeAI, TaskType } from '@google/generative-ai';
 import { GEMINI_SYSTEM_INSTRUCTION, buildGeminiUserPrompt } from './prompts';
 import { Verse } from '@/types/quran';
 
@@ -45,7 +45,20 @@ export async function generateQueryEmbedding(text: string): Promise<number[]> {
     throw new Error('GEMINI_API_KEY environment variable is missing.');
   }
 
-  const model = genAI.getGenerativeModel({ model: 'text-embedding-004' });
-  const result = await model.embedContent(text);
-  return result.embedding.values;
+  // Must match the verses.embedding column: vector(768), model gemini-embedding-001.
+  // The SDK has no outputDimensionality option yet, so we use Matryoshka truncation:
+  // keep the first 768 dims of the 3072-dim embedding and re-normalize.
+  const model = genAI.getGenerativeModel({ model: 'gemini-embedding-001' });
+  const result = await model.embedContent({
+    content: { role: 'user', parts: [{ text }] },
+    taskType: TaskType.RETRIEVAL_QUERY,
+  });
+  return normalizeDimensions(result.embedding.values, 768);
+}
+
+function normalizeDimensions(values: number[], dim: number): number[] {
+  const slice = values.slice(0, dim);
+  let norm = Math.sqrt(slice.reduce((sum, v) => sum + v * v, 0));
+  if (norm === 0) norm = 1;
+  return slice.map((v) => v / norm);
 }
